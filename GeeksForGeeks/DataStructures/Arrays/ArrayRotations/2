@@ -1,0 +1,36 @@
+#include <stdio.h>
+#define NUM_OF_ARR_ELEMENTS 10
+
+static void searchInAnArray(int arr[], int left, int right, int x)
+{
+}
+
+int main()
+{
+	int index = 0;
+	int n = 0;
+	int x = 0;
+	int arr[NUM_OF_ARR_ELEMENTS] = {0};
+
+	printf("\nEnter the number of elements\n");
+	scanf("%d", &n);
+	printf("\nThe number of elements are: %d\n", n);
+
+	printf("\nEnter an element that needs to be searched\n");
+	scanf("%d", &x);
+	printf("\nThe element that needs to be searched is: %d\n", x);
+
+	printf("\nEnter the elements in an array\n");
+	for (index = 0; index < n; ++index)
+	{
+		scanf("%d", &arr[index]);
+	}
+
+	printf("\nThe elements in an array are:\n");
+	for (index = 0; index < n; ++index)
+	{
+		printf("\n%d\n", arr[index]);
+	}
+
+	return 0;
+}
