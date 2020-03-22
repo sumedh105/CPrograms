@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void insert(struct node *a);
+void delete(struct node *a);
+void display();
+
+struct node
+{
+	int element;
+	struct node *next;
+};
+
+int main()
+{
+	int choice = 0;
+	struct node *root = NULL;
+
+	while (1)
+	{
+		printf("\nEnter the choice\n");
+		scanf("&d", &choice);
+		printf("\nPress 1 to insert a node into the linked list\n");
+		printf("\nPress 2 to remove a node from the linked list\n");
+		printf("\nPress 3 to display the linked list\n");
+		printf("\nPress 4 to exit\n");
+
+		switch (choice)
+		{
+			case 1:
+				insert();
+				break;
+
+			case 2:
+				delete();
+				break;
+
+			case 3:
+				display();
+				break;
+
+			case 4:
+				exit(0);
+
+			default:
+				break;
+
+		}
+
+	}
+
+
+	return 0;
+}
+
+void insert(struct node *rootNode)
+{
+	struct node *cur = NULL;
+	struct node *prev = NULL;
+
+}
+
+void delete()
+{
+
+}
+
+void display()
+{
+
+}

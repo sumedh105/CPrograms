@@ -1,0 +1,8 @@
+#include <stdio.h>
+
+int main()
+{
+	printf("%.*s", 4, "Hi, I am Sumedh W. Jambekar");
+
+	return 0;
+}

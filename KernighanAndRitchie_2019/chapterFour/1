@@ -1,0 +1,15 @@
+#include <stdio.h>
+#define MAXLINE 1000
+
+int getLine(char str[], int);
+
+int main()
+{
+	char str[MAXLINE];
+
+	while (getLine(str, MAXLINE))
+	{
+
+	}
+
+}
