@@ -7,6 +7,212 @@ struct node
 	struct node *next;
 };
 
+static int countGivenInt(struct node **head, int num)
+{
+	struct node *temp = NULL;
+	int count = 0;
+
+	if (*head == NULL)
+	{
+		/* do nothing */
+	}
+
+	else
+	{
+		temp = *head;
+
+		while (temp != NULL)
+		{
+			if (temp->data == num)
+			{
+				++count;
+			}
+
+			temp = temp->next;
+		}
+	}
+
+	return count;
+}
+
+static int getNthNodeFromBeg(struct node **head, int nodeNum)
+{
+	struct node *temp = NULL;
+	int result = 0;
+	int count = 0;
+
+	if (*head == NULL)
+	{
+		return 0;
+	}
+
+	else
+	{
+		temp = *head;
+
+		while (temp->next != NULL)
+		{
+			++count;
+
+			if (count == nodeNum)
+			{
+				return (temp->data);
+			}
+
+			temp = temp->next;
+		}
+	}
+}
+
+static int getNthNodeFromEnd(struct node **head, int nodeNum)
+{
+	struct node *temp = NULL;
+	int result = 0;
+	int count = 0;
+	int node = 0;
+
+	if (*head == NULL)
+	{
+		return 0;
+	}
+
+	else
+	{
+		temp = *head;
+
+		while (temp != NULL)
+		{
+			temp = temp->next;
+			++count;
+		}
+
+		printf("\ncount: %d\t nodeNum: %d\n", count, nodeNum);
+
+		temp = *head;
+		node = count - nodeNum + 1;
+		count = 0;
+
+		while (temp->next != NULL)
+		{
+			++count;
+
+			if (count == node)
+			{
+				return (temp->data);
+			}
+
+			temp = temp->next;
+		}
+
+	}
+}
+
+static int searchElement(struct node **head, int element)
+{
+	struct node *temp = NULL;
+
+	if (*head == NULL)
+	{
+		return 0;
+	}
+
+	else
+	{
+		temp = *head;
+	
+		while (temp != NULL)
+		{
+			if (temp->data == element)
+			{
+				return 1;
+			}
+			temp = temp->next;
+		}
+
+		if (temp == NULL)
+		{
+			return 0;
+		}
+	}
+}
+
+static int findLength(struct node **head)
+{
+	struct node *temp = NULL;
+	int length = 0;
+
+	if (*head == NULL)
+	{
+		/* do nothing */
+	}
+
+	else
+	{
+		temp = *head;
+
+		while (temp != NULL)
+		{
+			temp = temp->next;
+			++length;
+		}
+	}
+
+	return length;
+}
+
+static void deleteListAtGivenPos(struct node **head, int pos)
+{
+	struct node *temp = NULL;
+	struct node *prev = NULL;
+	int count = 0;
+
+	if (*head == NULL)
+	{
+		printf("\nList is empty, nothing can be deleted\n");
+	}
+
+	else if (pos == 1)
+	{
+		if ((*head)->next == NULL)
+		{
+			*head = NULL;
+			free(*head);
+		}
+		else
+		{
+			temp = *head;
+			*head = (*head)->next;
+			free(temp);
+		}
+	}
+
+	else
+	{
+		temp = *head;
+		prev = temp;
+
+		while ((temp->next != NULL))
+		{
+			++count;
+
+			if (count == pos)
+			{
+				break;
+			}	
+
+			temp = temp->next;
+		}
+
+		while (prev->next != temp)
+		{
+			prev = prev->next;
+		}
+
+		prev->next = temp->next;
+		free(temp);
+	}
+}
+
 static void deleteFromBeg(struct node **head)
 {
 	struct node *temp = NULL;
@@ -146,6 +352,7 @@ int main()
 	int choice = 0;
 	int data = 0;
 	int nodeNum = 0;
+	int pos = 0;
 
 	while (1)
 	{
@@ -153,7 +360,13 @@ int main()
 		printf("\nPress 2 to insert an element at the end of the linked list\n");
 		printf("\nPress 3 to delete an element from the beginning of the linked list\n");
 		printf("\nPress 4 to delete an element from the end of the linked list\n");
-		printf("\nPress 5 to display the linked list\n");
+		printf("\nPress 5 to delete an element from a given position\n");
+		printf("\nPress 6 to find the length of a linked list\n");
+		printf("\nPress 7 to search an element in a linked list\n");
+		printf("\nPress 8 to get an nth node from the beginning in a linked list\n");
+		printf("\nPress 9 to get an nth node from the end in a linked list\n");
+		printf("\nPress 10 to display the count of the number of times a given integer occurs in a linked list\n");
+		printf("\nPress 11 to display the linked list\n");
 		printf("\nPress 0 to exit\n");
 
 		scanf("%d", &choice);
@@ -189,6 +402,87 @@ int main()
 			}
 
 			case 5:
+			{
+				printf("\nEnter a position from which a node must be deleted\n");
+				scanf("%d", &pos);
+				deleteListAtGivenPos(&head, pos);
+				break;
+			}
+
+			case 6:
+			{
+				int length = 0;
+				length = findLength(&head);
+
+				printf("\nThe length of a linked list is: %d\n", length);
+				break;
+			}
+
+			case 7:
+			{
+				int element = 0;
+				int result = 0;
+
+				printf("\nEnter an element that needs to be searched\n");
+				scanf("%d", &element);
+
+				result = searchElement(&head, element);
+
+				if (result == 1)
+				{
+					printf("\nThe specified element was found in the linked list\n");
+				}
+				else if (result == 0)
+				{
+					printf("\nThe specified element was not found in the linked list\n");
+				}
+
+				break;
+			}
+
+			case 8:
+			{
+				int result = 0;
+
+				printf("\nEnter the node number from which the data must be obtained\n");
+				scanf("%d", &nodeNum);
+
+				result = getNthNodeFromBeg(&head, nodeNum);
+
+				printf("\nThe result is: %d\n", result);
+
+				break;
+			}
+
+			case 9:
+			{
+				int result = 0;
+
+				printf("\nEnter the node number from which the data must be obtained\n");
+				scanf("%d", &nodeNum);
+
+				result = getNthNodeFromEnd(&head, nodeNum);
+
+				printf("\nThe result is: %d\n", result);
+
+				break;
+			}
+
+			case 10:
+			{
+				int num = 0;
+				int result = 0;
+
+				printf("\nEnter a number that needs to be searched\n");
+				scanf("%d", &num);
+
+				result = countGivenInt(&head, num);
+
+				printf("\nThe number of times a given element occurs in a linked list: %d\n", result);
+				break;
+			}
+
+			case 11:
 			{
 				display(&head);
 				break;
