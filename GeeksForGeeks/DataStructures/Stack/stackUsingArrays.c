@@ -1,9 +1,68 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+struct stack
+{
+	int top;
+	int capacity;
+	int *arr;
+};
+
+static void push(struct stack **st, int data)
+{
+	if ((*st)->top == (*st)->capacity)
+	{
+		printf("\nThe stack is full, nothing can be added to the stack\n");
+	}
+	else
+	{
+		(*st)->arr[++(*st)->top] = data;
+	}
+}
+
+static int pop(struct stack **st)
+{
+	if ((*st)->top == -1)
+	{
+		printf("\nNothing can be popped from the stack, the stack is empty\n");
+	}
+	else
+	{
+		return ((*st)->arr[(*st)->top--]);
+	}
+}
+
+static int peek(struct stack **st)
+{
+	return ((*st)->arr[(*st)->top]);
+}
+
+static void display(struct stack *st)
+{
+	int index = 0;
+
+	while (index < st->top)
+	{
+		printf("\n%d\n", st->arr[index]);
+	}
+}
+
+struct stack *createStack(unsigned int capacity)
+{
+	struct stack *st = (struct stack *)malloc(sizeof(struct stack));
+	st->top = -1;
+	st->capacity = capacity;
+	st->arr = (int *)malloc(capacity * sizeof(int));
+
+	return st;
+}
 
 int main()
 {
 	int choice = 0;
+	struct stack *st = NULL;
 
+	st = createStack(100);
 
 	while (1)
 	{
@@ -17,14 +76,18 @@ int main()
 		switch (choice)
 		{
 			case 1:
-			{
-				push();
+			{	
+				int data = 0;
+				printf("\nEnter the data that needs to be pushed\n");
+				scanf("%d", &data);
+
+				push(&st, data);
 				break;
 			}
 			case 2:
 			{
 				int data = 0;
-				data = pop();
+				data = pop(&st);
 
 				printf("\nThe popped data is: %d\n", data);
 
@@ -33,7 +96,7 @@ int main()
 			case 3:
 			{	
 				int data = 0;
-				data = peek();
+				data = peek(&st);
 
 				printf("\nThe data at top is: %d\n", data);
 
@@ -41,7 +104,7 @@ int main()
 			}
 			case 4:
 			{
-				display();
+				display(st);
 				break;
 			}
 			default:
