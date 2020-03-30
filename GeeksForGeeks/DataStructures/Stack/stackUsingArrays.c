@@ -41,9 +41,18 @@ static void display(struct stack *st)
 {
 	int index = 0;
 
-	while (index < st->top)
+	if (st->top < 0)
 	{
-		printf("\n%d\n", st->arr[index]);
+		printf("\nThe stack is empty, nothing can be printed\n");
+	}
+
+	else
+	{
+		while (index <= st->top)
+		{
+			printf("\n%d\n", st->arr[index]);
+			++index;
+		}
 	}
 }
 
@@ -66,6 +75,7 @@ int main()
 
 	while (1)
 	{
+		printf("\nPress 0 to exit\n");
 		printf("\nPress 1 to push the data to the stack\n");
 		printf("\nPress 2 to pop the data from the stack\n");
 		printf("\nPress 3 to peek or get the top from the stack\n");
@@ -75,6 +85,10 @@ int main()
 
 		switch (choice)
 		{
+			case 0:
+			{
+				exit(1);
+			}
 			case 1:
 			{	
 				int data = 0;
