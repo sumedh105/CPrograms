@@ -5,6 +5,26 @@ int arr[MAXSIZE];
 int top1 = -1;
 int top2 = MAXSIZE;
 
+static void push(int stackNumber, int value)
+{
+
+}
+
+static int pop(int stackNumber)
+{
+
+}
+
+static int peek(int stackNumber)
+{
+
+}
+
+static void display(int stackNumber)
+{
+
+}
+
 int main()
 {
 	int stackNumber = 0;
@@ -30,31 +50,54 @@ int main()
 
 			case 1:
 			{
-				push();
+				int stackNumber = 0;
+				int value = 0;
+
+				printf("\nEnter the stacknumber and enter the value to be pushed\n");
+				scanf("%d%d", &stackNumber, &value);
+				push(stackNumber, value);
 				break;
 			}
 
 			case 2:
 			{
-				pop();
+				int stackNumber = 0;
+				int value = 0;
+
+				printf("\nEnter the stack number from which the value must be popped\n");
+				value = pop(stackNumber);
+				printf("\nThe value that is popped from stack %d is: %d\n", stackNumber, value);
 				break;
 			}
 
 			case 3:
 			{
-				peek();
+				int stackNumber = 0;
+				int value = 0;
+
+				printf("\nEnter the stack number whose top value has to be displayed\n");
+				scanf("%d", &stackNumber);
+				value = peek(stackNumber);
+				printf("\nThe value at the top of stack %d is: %d\n", stackNumber, value);
 				break;
 			}
 
 			case 4:
 			{
-				display();
+				int stackNumber = 0;
+
+				printf("\nEnter the stack number which has to be displayed\n");
+				scanf("%d", &stackNumber);
+				display(stackNumber);
+				break;
+			}
+
+			default:
+			{
 				break;
 			}
 		}
 	}
-
-
 
 	return 0;
 }
