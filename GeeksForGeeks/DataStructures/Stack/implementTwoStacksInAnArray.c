@@ -1,5 +1,8 @@
 #include <stdio.h>
-#define MAXSIZE 100
+#include <stdlib.h>
+#define MAXSIZE 10
+#define FORWARDSTACK 1
+#define BACKWARDSTACK 2
 
 int arr[MAXSIZE];
 int top1 = -1;
@@ -7,22 +10,82 @@ int top2 = MAXSIZE;
 
 static void push(int stackNumber, int value)
 {
-
+	if (top1 == (top2 - 1))
+	{
+		printf("\nStack overflow, both the stacks are full, nothing can be pushed\n");
+	}
+	else if (stackNumber == FORWARDSTACK)
+	{
+		arr[++top1] = value;
+	} 
+	else if (stackNumber == BACKWARDSTACK)
+	{
+		arr[--top2] = value;
+	}
 }
 
 static int pop(int stackNumber)
 {
+	if (stackNumber == FORWARDSTACK)
+	{
+		if (top1 == -1)
+		{
+			return -1;
+		}
+		else
+		{
+			return arr[top1--];
+		}
+	}
 
+	else if (stackNumber == BACKWARDSTACK)
+	{
+		if (top2 == MAXSIZE)
+		{
+			return -1;
+		}
+		else
+		{
+			return arr[top2++];
+		}
+	}
 }
 
 static int peek(int stackNumber)
 {
-
+	if (stackNumber == FORWARDSTACK)
+	{
+		if (top1 == -1)
+		{
+			return -1;
+		}
+		else
+		{
+			return arr[top1];
+		}
+	}
+	else if (stackNumber == BACKWARDSTACK)
+	{
+		if (top2 == MAXSIZE)
+		{
+			return -1;
+		}
+		else
+		{
+			return arr[top2];
+		}
+	}
 }
 
-static void display(int stackNumber)
+static void display()
 {
+	int index = 0;
 
+	while (index < MAXSIZE)
+	{
+		printf("\n%d\n", arr[index]);
+		++index;
+	}
 }
 
 int main()
@@ -65,6 +128,7 @@ int main()
 				int value = 0;
 
 				printf("\nEnter the stack number from which the value must be popped\n");
+				scanf("%d", &stackNumber);
 				value = pop(stackNumber);
 				printf("\nThe value that is popped from stack %d is: %d\n", stackNumber, value);
 				break;
@@ -84,11 +148,7 @@ int main()
 
 			case 4:
 			{
-				int stackNumber = 0;
-
-				printf("\nEnter the stack number which has to be displayed\n");
-				scanf("%d", &stackNumber);
-				display(stackNumber);
+				display();
 				break;
 			}
 
