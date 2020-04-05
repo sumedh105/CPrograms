@@ -34,9 +34,37 @@ static char pop()
 	}
 }
 
+static int isOperand(char data)
+{
+	return (((data >= 'a') && (data <= 'z')) || ((data >= 'A') && (data <= 'Z')))
+}
+
+static int predecence(char data)
+{
+	switch (data)
+	{
+		case '+':
+		case '-':
+		{
+			return 1;
+		}
+
+		case '/':
+		case '*':
+		{
+			return 2;
+		}
+
+		case '^':
+		{
+			return 3;
+		}
+	}
+}
+
 int main()
 {
-
+	char expr[] = "a+b*c+d";
 
 
 	return 0;
