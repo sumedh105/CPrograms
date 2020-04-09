@@ -14,7 +14,6 @@ static void push(char data)
 
 	else
 	{
-		printf("\nI am here\n");
 		stack[++top] = data;
 	}
 }
@@ -61,31 +60,36 @@ static int predecence(char data)
 		{
 			return 3;
 		}
-	}
-}
-
-static void display()
-{
-	int index = 0;
-
-	for (index = 0; index <= top; ++index)
-	{
-		printf("\nstack[index]: %c\n", stack[index]);
+		case '(':
+			return 0;
 	}
 }
 
 int main()
 {
-	char expr[] = "a+b*c+d";
+	char expr[] = "a+b*(c^d-e)^(f+g*h)-i";
 	int index = 0;
 	int indexTwo = 0;
 
 	while (expr[index] != '\0')
 	{
-		printf("\n%c\n", expr[index]);
 		if (isOperand(expr[index]))
 		{
 			arr[indexTwo++] = expr[index];
+		}
+
+		else if (expr[index] == '(')
+		{
+			push(expr[index]);
+		}
+
+		else if (expr[index] == ')')
+		{
+			while ((stack[top] != '(') && (top != -1))
+			{
+				arr[indexTwo++] = pop();
+			}
+			pop();
 		}
 
 		else
@@ -95,8 +99,6 @@ int main()
 				arr[indexTwo++] = pop();
 			}
 			push(expr[index]);
-			//display();
-			printf("\n%d\n", __LINE__);
 		}
 
 		++index;
