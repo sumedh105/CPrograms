@@ -1,6 +1,7 @@
 #include <stdio.h>
 #define MAXSIZE 20
 
+char arr[MAXSIZE];
 char stack[MAXSIZE];
 int top = -1;
 
@@ -13,6 +14,7 @@ static void push(char data)
 
 	else
 	{
+		printf("\nI am here\n");
 		stack[++top] = data;
 	}
 }
@@ -36,7 +38,7 @@ static char pop()
 
 static int isOperand(char data)
 {
-	return (((data >= 'a') && (data <= 'z')) || ((data >= 'A') && (data <= 'Z')))
+	return (((data >= 'a') && (data <= 'z')) || ((data >= 'A') && (data <= 'Z')));
 }
 
 static int predecence(char data)
@@ -62,10 +64,52 @@ static int predecence(char data)
 	}
 }
 
+static void display()
+{
+	int index = 0;
+
+	for (index = 0; index <= top; ++index)
+	{
+		printf("\nstack[index]: %c\n", stack[index]);
+	}
+}
+
 int main()
 {
 	char expr[] = "a+b*c+d";
+	int index = 0;
+	int indexTwo = 0;
 
+	while (expr[index] != '\0')
+	{
+		printf("\n%c\n", expr[index]);
+		if (isOperand(expr[index]))
+		{
+			arr[indexTwo++] = expr[index];
+		}
+
+		else
+		{
+			while ((top != -1) && (predecence(expr[index]) <= predecence(stack[top])))
+			{
+				arr[indexTwo++] = pop();
+			}
+			push(expr[index]);
+			//display();
+			printf("\n%d\n", __LINE__);
+		}
+
+		++index;
+	}
+
+	while (top != -1)
+	{
+		arr[indexTwo] = pop();
+		++indexTwo;
+	}
+	arr[indexTwo] = '\0';
+
+	printf("\nInfix to postfix converted array is: %s\n", arr);
 
 	return 0;
 }
