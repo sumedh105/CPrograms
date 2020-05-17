@@ -145,38 +145,24 @@ static int postorder(struct tree *root_node)
 
 static int find_min(struct tree *root_node)
 {
-	int min = 0;
+	struct tree *current = root_node;
 
-	if (root_node == NULL)
+	while (current->left_child != NULL)
 	{
-		return root_node->data;
+		current = current->left_child;
 	}
-	else if (root_node->left_child == NULL)
-	{
-		min = root_node->data;
-		return min;
-	}
-	else
-	{
-		find_min(root_node->left_child);
-	}
+	
+	return current->data;
 }
 
 static int find_max(struct tree *root_node)
 {
-	int max = 0;
+	struct tree *current = root_node;
 
-	if (root_node == NULL)
+	while (current->right_child != NULL)
 	{
-		return root_node->data;
+		current = current->right_child;
 	}
-	else if (root_node->right_child == NULL)
-	{
-		max = root_node->data;
-		return max;
-	}
-	else
-	{
-		find_max(root_node->right_child);
-	}
+
+	return current->data;
 }
