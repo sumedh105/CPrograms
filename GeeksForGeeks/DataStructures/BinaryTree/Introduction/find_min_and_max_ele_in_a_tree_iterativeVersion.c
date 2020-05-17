@@ -147,9 +147,17 @@ static int find_min(struct tree *root_node)
 {
 	struct tree *current = root_node;
 
-	while (current->left_child != NULL)
+	if (root_node == NULL)
 	{
-		current = current->left_child;
+		return -1;
+	}
+
+	else
+	{
+		while (current->left_child != NULL)
+		{
+			current = current->left_child;
+		}
 	}
 	
 	return current->data;
